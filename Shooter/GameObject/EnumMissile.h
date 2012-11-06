@@ -1,0 +1,11 @@
+#pragma once
+
+enum EnumMissiles
+{
+	MISSILE_NORMAL,
+	MISSILE_FIRE,
+	MISSILE_ICE,
+	MISSILE_ELECT,
+	MISSILE_DRILL,
+	NUM_MISSILES,
+};

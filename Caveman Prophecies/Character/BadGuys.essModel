@@ -1,0 +1,118 @@
+[Box: ::Character - ::<<Unknown>>::TestCase]
+X=225
+Y=40
+
+[Box: ::Character - ::Character::CharacterTest]
+X=225
+Y=525
+
+[Box: ::Character - ::Character::BadGuys]
+X=3300
+Y=525
+
+[Box: ::Character - ::Character::Character]
+X=2992
+Y=40
+
+[Box: ::Character - ::Character::CharacterAttribute]
+X=2685
+Y=40
+
+[Box: ::Character - ::Character::CharacterAttributeDefault]
+X=2685
+Y=525
+
+[Box: ::Character - ::Character::Equipment]
+X=2384
+Y=60
+
+[Box: ::Character - ::Character::GoodGuys]
+X=20
+Y=525
+
+[Box: ::Character - ::Character::Hero]
+X=2890
+Y=525
+
+[Box: ::Character - ::Character::HeroGenerator]
+X=2890
+Y=685
+
+[Box: ::Character - ::Character::HeroNameList]
+X=635
+Y=40
+
+[Box: ::Character - ::Character::HeroSpecialDecrease]
+X=1250
+Y=525
+
+[Box: ::Character - ::Character::HeroSpecialMuscle]
+X=1455
+Y=525
+
+[Box: ::Character - ::Character::HeroSpecialRecover]
+X=1045
+Y=525
+
+[Box: ::Character - ::Character::HeroSpecialTriple]
+X=635
+Y=525
+
+[Box: ::Character - ::Character::Monster]
+X=3095
+Y=525
+
+[Box: ::Character - ::Character::MonsterBoss]
+X=840
+Y=525
+
+[Box: ::Character - ::Character::MonsterCrazyBlow]
+X=2275
+Y=525
+
+[Box: ::Character - ::Character::MonsterFireBall]
+X=2480
+Y=525
+
+[Box: ::Character - ::Character::MonsterGenerator]
+X=3095
+Y=685
+
+[Box: ::Character - ::Character::MonsterMasher]
+X=2070
+Y=525
+
+[Box: ::Character - ::Character::MonsterNameList]
+X=430
+Y=40
+
+[Box: ::Character - ::Character::MonsterParty]
+X=3300
+Y=40
+
+[Box: ::Character - ::Character::MonsterPoison]
+X=1660
+Y=525
+
+[Box: ::Character - ::Character::NameList]
+X=430
+Y=525
+
+[Box: ::Character - ::Character::Party]
+X=20
+Y=40
+
+[Box: ::Character - ::Character::SpecialAttack]
+X=1558
+Y=40
+
+[Box: ::Character - ::Character::SpecialAttackDefault]
+X=1865
+Y=525
+
+[Diagram: ::Character]
+OffsetX=0
+OffsetY=0
+Visibility=0
+ShowAssoc=0
+
