@@ -1,3 +1,6 @@
+// Copyright (c) 2012, Michael Schrandt
+// All rights reserved.
+
 #include "tetrisBoard.h"
 #include "Timer.h"
 #include "SDL.h"
