@@ -1,3 +1,4 @@
-This directory contains code from projects that I have worked on that can be seen at http://michaelschrandt.blogspot.com/
+This directory contains sample code from projects that I have worked on that can be seen at http://michaelschrandt.blogspot.com/
+http://www.youtube.com/user/ffantasy36?feature=mhee
 
-As most of this code was not written for public display, it is admittedly poorly documented. 
+Use this code at your own disgretion. Most of this code requires libraries including, but not limited to, PyGame, SDL, Allegro, SFML, and Swing. Please contact me if you want version information on any of the listed libraries, or missing resources that are not included in the repository.
