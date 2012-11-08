@@ -1,3 +1,5 @@
+//simple timer used to regulate FPS
+
 #pragma once
 
 #include "SDL.h"

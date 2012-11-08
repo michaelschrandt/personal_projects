@@ -1,9 +1,14 @@
+// Michael Schrandt
+//
+
+
 #include "tetrisBoard.h"
 
 long TetrisBoard::highScore = 0;
 
 TetrisBoard::TetrisBoard()
 {
+	//initialize grid
 	srand(time(NULL));
 	for (int i = 0; i < GRID_H; i++)
 		for (int j = 0; j < GRID_W; j++)
@@ -32,6 +37,7 @@ TetrisBoard::~TetrisBoard()
 	//	delete nextPiece;
 }
 
+//when key is pressed
 void TetrisBoard::handleInput(SDL_Event& event)
 {
 	switch( event.key.keysym.sym )
@@ -77,6 +83,7 @@ void TetrisBoard::handleInput(SDL_Event& event)
 		}
 	case SDLK_z:
 		{
+			//rotate clockwise
 			clearPieceFromBoard();
 			currentPiece->rotateClock();
 			if(checkCollision(pos_x, pos_y))
@@ -87,7 +94,7 @@ void TetrisBoard::handleInput(SDL_Event& event)
 		}
 	case SDLK_x:
 		{
-
+			//rotate counterclockwise
 			clearPieceFromBoard();
 			currentPiece->rotateAntiClock();
 			if(checkCollision(pos_x, pos_y))
@@ -97,7 +104,7 @@ void TetrisBoard::handleInput(SDL_Event& event)
 			break;
 		}
 	case SDLK_c:
-		{
+		{	//hold piece
 			if (canHold)
 			{
 				canHold = false;
@@ -127,6 +134,7 @@ void TetrisBoard::handleInput(SDL_Event& event)
 	}
 }
 
+//when a key is held down: action is repeated
 void TetrisBoard::handleInput(Uint8* keystates)
 {
 	/*if(keystates[ SDLK_UP ])
@@ -188,6 +196,7 @@ void TetrisBoard::handleInput(Uint8* keystates)
 	}*/
 }
 
+//random piece generator
 TetrisPiece* TetrisBoard::newPiece()
 {
 	int n = rand() % 7 + 1;
@@ -212,6 +221,7 @@ TetrisPiece* TetrisBoard::newPiece()
 	return NULL;
 }
 
+//check if a piece potentially collides with the grid, or other pieces
 bool TetrisBoard::checkCollision(int tempx, int tempy)
 {
 	for (int i = 0; i < (*currentPiece).getDim(); i++)
@@ -229,6 +239,7 @@ bool TetrisBoard::checkCollision(int tempx, int tempy)
 	return false;
 }
 
+//did we lose?
 bool TetrisBoard::lost()
 {
 	for(int i = 0; i < GRID_W; i++)
@@ -240,11 +251,15 @@ bool TetrisBoard::lost()
 	return false;
 }
 
+//clear all rows that are filled
 int TetrisBoard::clearFullRows()
 {
 	int lines = 0;
+	
+	//starting from the top row
 	for (int i = 0; i < GRID_H; i++)
 	{
+		//check if a spot is empty
 		bool allOnes = true;
 		for(int j = 0; j < GRID_W; j++)
 		{
@@ -268,15 +283,14 @@ int TetrisBoard::clearFullRows()
 	return lines;
 }
 
+//called once each cycle
 void TetrisBoard::update()
 {
 	clearPieceFromBoard();
-	if (checkCollision(pos_x,pos_y+1))
+	if (checkCollision(pos_x,pos_y+1))	//current piece locked in
 	{
-
-		//piece locked
 		drawPieceToBoard();
-
+	
 		delete currentPiece;
 
 		linesCleared += clearFullRows();
@@ -288,6 +302,7 @@ void TetrisBoard::update()
 			return;
 		}
 
+		//set up new piece
 		currentPiece = nextPiece;
 		nextPiece = newPiece();
 		canHold = true;
@@ -295,10 +310,10 @@ void TetrisBoard::update()
 		pos_y = 0;
 		pos_x = GRID_W/2 - ceil(currentPiece->getDim()/2.0);
 
-		getBestPosition();
+		getBestPosition(); //AI COMPONENT
 		
 	}
-	else
+	else //move current piece down one row
 	{
 		pos_y++;
 		drawPieceToBoard();
@@ -306,17 +321,22 @@ void TetrisBoard::update()
 
 }
 
+//AI COMPONENT
+//
+// - Select a position for the current piece that yields the highest score.
+// - All possible positions are tested
+// - If the "held" piece has a higher score, swap current piece with held piece
 vector<char> TetrisBoard::getBestPosition()
 {
 	int maxScore = -100;
-
-
 	int bestPerm = 0;
 	int bestX = 0;
 	clearPieceFromBoard();
 
+	//for every rotation of the current piece
 	for(int i = 0; i < currentPiece->numStates; i++)
 	{
+		//check every x-value that it can fall, starting from left to right
 		int tempx = pos_x;
 		while(!checkCollision(--tempx, pos_y));
 		tempx++;
@@ -324,6 +344,8 @@ vector<char> TetrisBoard::getBestPosition()
 		for(; !checkCollision(tempx, pos_y); tempx++)
 		{
 			int currentScore = getScore(tempx, i);
+			
+			//check if this spot is the best so far
 			if(currentScore > maxScore)
 			{
 				maxScore = currentScore;
@@ -331,15 +353,22 @@ vector<char> TetrisBoard::getBestPosition()
 				bestX = tempx;
 			}
 		}
-
+		
+		//rotate, and try again
 		currentPiece->rotateClock();
 	}
+	//if there is currently no held piece, and the score is really bad...
 	if(heldPiece == NULL && maxScore < 20)
 	{
+			//just hold the current piece
 			heldPiece = currentPiece;
 			currentPiece = nextPiece;
 			nextPiece = newPiece();
 	}
+	
+	//if there is a held piece, check its score too
+	
+	//THIS COULD BE IN ITS OWN METHOD, SAME CODE AS ABOVE
 	else if(heldPiece != NULL)
 	{
 		TetrisPiece * temp = currentPiece;
@@ -391,6 +420,11 @@ vector<char> TetrisBoard::getBestPosition()
 
 }
 
+// Calculate the score of a potential spot for a piece:
+//	- Default is 0
+//	- For every edge touching a wall or use tile, +2
+//	- For every edge facing down, left or right (but not up), -10
+//	- Tweaked scores may yield better results
 int TetrisBoard::getScore(int tempx, int rotation)
 {
 	//clearPieceFromBoard();
@@ -409,23 +443,23 @@ int TetrisBoard::getScore(int tempx, int rotation)
 			if(shape[i][j] == 0)
 				continue;
 
-			if(i + tempy == GRID_H - 1)
+			if(i + tempy == GRID_H - 1) //touching ground
 				score += 2;
 			
-			if(i + tempy != GRID_H - 1 && grid[i + tempy + 1][j + tempx] != 0)
+			if(i + tempy != GRID_H - 1 && grid[i + tempy + 1][j + tempx] != 0) //touching adjacent piece (below)
 				score += 2;
 			
 			if(i + tempy != GRID_H - 1 && i < currentPiece->getDim() - 1 && shape[i][j] != 0 && shape[i+1][j] == 0 &&
-				grid[i+tempy+1][j+tempx] == 0)
+				grid[i+tempy+1][j+tempx] == 0) //touching blank tile, BAD
 				score -= 10;
 
-			if((j + tempx == 0 || j + tempx == GRID_W - 1))
+			if((j + tempx == 0 || j + tempx == GRID_W - 1)) //touching wall
 				score += 2;
 			
-			if(!(j + tempx == 0 || j + tempx == GRID_W - 1) && (grid[i + tempy][j + tempx + 1] != 0)) 
+			if(!(j + tempx == 0 || j + tempx == GRID_W - 1) && (grid[i + tempy][j + tempx + 1] != 0))  //touching adjacent piece (from the left)
 				score += 2;
 
-			if(!(j + tempx == 0 || j + tempx == GRID_W - 1) && grid[i + tempy][j + tempx - 1] != 0)
+			if(!(j + tempx == 0 || j + tempx == GRID_W - 1) && grid[i + tempy][j + tempx - 1] != 0) //touching adjacent piece (from the right)
 				score += 2;
 
 		}
@@ -434,6 +468,7 @@ int TetrisBoard::getScore(int tempx, int rotation)
 	return score;
 }
 
+//draw board
 void TetrisBoard::draw(SDL_Surface* screen, TTF_Font* font)
 {
 	const int TILEW = 20;

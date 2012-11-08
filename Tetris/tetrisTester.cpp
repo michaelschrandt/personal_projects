@@ -15,6 +15,8 @@ const int FPS = 40;
 using namespace std;
 int main( int argc, char** argv)
 {
+
+	//initialize SDL
 	SDL_Surface* screen = NULL;
 	TTF_Font* font = NULL;
 	
@@ -26,7 +28,7 @@ int main( int argc, char** argv)
 	TTF_Init();
 	font = TTF_OpenFont( "west_england.ttf", 24);
 	
-	//initialize
+	//initialize Game
 	TetrisBoard game;
 	Timer fps;
 	int frame = 0;
@@ -38,6 +40,8 @@ int main( int argc, char** argv)
 	while (quit == false && game.isAlive())
 	{
 		fps.start();
+		
+		//handle events
 		if (SDL_PollEvent( &event ))
 		{
 
@@ -71,11 +75,12 @@ int main( int argc, char** argv)
 			game.handleInput(keystates);
 		}
 
-
+		//Game Logic
+		
 		//FIX LEVEL PROGRESSION
 		//if(game.getLevel() >= 10)
 			//game.update();
-
+		
 		//else if(frame%(FPS - game.getLevel()*4) == 0)
 			game.update();
 
@@ -85,16 +90,20 @@ int main( int argc, char** argv)
 			game = TetrisBoard();
 			continue;
 		}
+		
+		//Render
 		game.draw(screen, font);
 		SDL_Flip(screen);
 		
+		
+		//FPS regulation
 		frame++;
 		keyFrame++;
 		if(FPSCap && fps.getTicks() < 1000.0 / FPS)
 			SDL_Delay( ( 1000.0 / FPS) - fps.getTicks() );
 	}
 
-
+	//Deinitialize
 	TTF_CloseFont( font );
 	TTF_Quit();
 	SDL_Quit();

@@ -1,3 +1,7 @@
+// Michael Schrandt
+//
+// Tetrimino contains collision information, display data, and orientation of a single Tetris piece.
+
 #pragma once
 #include <iostream>
 #include "SDL.h"

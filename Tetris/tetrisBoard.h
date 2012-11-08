@@ -1,3 +1,8 @@
+// Michael Schrandt
+
+// Tetris Board is a grid containing active, and previously placed Tetriminos.
+// The AI component is also contained within this class.
+
 #pragma once
 
 #include "tetrisPiece.h"
