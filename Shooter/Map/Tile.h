@@ -1,3 +1,7 @@
+// Michael Schrandt
+//
+// Tile class. Contains a sprite and collision information.
+
 #pragma once
 
 #include "Game.h"

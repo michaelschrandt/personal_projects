@@ -1,3 +1,5 @@
+// Michael Schrandt
+
 #pragma once
 #include <allegro.h>
 

@@ -1,3 +1,7 @@
+// Michael Schrandt
+//
+// Tile codes for reading/writing map files
+
 #pragma once
 
 enum EnumTile

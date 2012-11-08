@@ -1,3 +1,7 @@
+// Michael Schrandt
+//
+// A Snake is a collection of snake links.
+
 #pragma once
 #include "SnakeLink.h"
 

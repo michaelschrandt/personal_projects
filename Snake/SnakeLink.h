@@ -1,3 +1,7 @@
+// Michael Schrandt
+//
+// SnakeLink is one unit of the snake
+
 #pragma once
 #include <allegro.h>
 

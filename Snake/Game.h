@@ -1,3 +1,7 @@
+// Michael Schrandt
+//
+// Game object
+
 #pragma once
 #include <allegro.h>
 #include "Apple.h"

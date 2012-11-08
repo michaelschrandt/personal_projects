@@ -1,3 +1,5 @@
+// Michael Schrandt
+
 #include "SnakeLink.h"
 
 SnakeLink::SnakeLink()

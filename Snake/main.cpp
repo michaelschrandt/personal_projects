@@ -1,3 +1,7 @@
+// Michael Schrandt
+//
+// Snake Clone
+
 #include "game.h"
 
 volatile long speed_counter = 0;
@@ -9,12 +13,11 @@ int main()
     readkey();
     LOCK_VARIABLE(speed_counter);
     LOCK_FUNCTION(increment_speed_counter);
-    install_int_ex(increment_speed_counter, BPS_TO_TIMER(10));//Set our BPS
+    install_int_ex(increment_speed_counter, BPS_TO_TIMER(10));//Set our FPS
 
 
     while (!key[KEY_ESC] && !game.done)
     {
-
 
         while (speed_counter > 0)
         {
@@ -31,9 +34,8 @@ int main()
 }
 END_OF_MAIN();
 
-//generic speed loop
 void increment_speed_counter()
 {
-  speed_counter++; // This will just increment the speed counter by one. :)
+  speed_counter++; 
 }
 END_OF_FUNCTION(increment_speed_counter);

@@ -1,5 +1,8 @@
+// Michael Schrandt
+
 #include "Map.h"
 
+// Generate map from text file.
 Map::Map(std::string path)
 {
 	ifstream inFile(path);

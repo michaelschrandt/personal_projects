@@ -1,3 +1,5 @@
+// Michael Schrandt
+
 #include "Tile.h"
 
 Tile::Tile()

@@ -1,3 +1,9 @@
+// Michael Schrandt
+//
+// Tile factory, for creating specified tile.
+// One copy of each tile is created at runtime, any request for a tile
+//	returns a reference to an existing tile (flyweight pattern).
+
 #pragma once
 
 #include "EnumTile.h"

@@ -1,3 +1,7 @@
+// Michael Schrandt
+//
+// Map is a 2d grid of tiles.
+
 #pragma once
 
 #include <iostream>

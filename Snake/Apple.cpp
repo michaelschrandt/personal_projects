@@ -1,3 +1,7 @@
+// Michael Schrandt
+//
+// Apple object: when picked up, snake adds one SnakeLink
+
 #include "Apple.h"
 #include <ctime>
 

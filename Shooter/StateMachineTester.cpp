@@ -1,3 +1,7 @@
+// Michael Schrandt
+//
+// Shooter/platformer game.
+
 #include "Game.h"
 
 using namespace std;

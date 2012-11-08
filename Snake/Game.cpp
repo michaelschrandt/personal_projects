@@ -1,3 +1,5 @@
+// Michael Schrandt
+
 #include "Game.h"
 
 Game::Game()
@@ -16,6 +18,7 @@ void Game::init()
     buffer = create_bitmap(640, 480);
 }
 
+// handle input and apply logic
 void Game::update()
 {
     if (key[KEY_UP])
@@ -42,6 +45,7 @@ void Game::update()
     }
 }
 
+//render
 void Game::drawBoard()
 {
     const int GRID_PX = 32;

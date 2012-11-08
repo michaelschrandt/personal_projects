@@ -1,3 +1,5 @@
+// Michael Schrandt
+
 #include "System.h"
 
 System::System()
@@ -5,6 +7,7 @@ System::System()
     setup();
 }
 
+// Initialize Allegro
 void System::setup()
 {
     screenWidth = 640;

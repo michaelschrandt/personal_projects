@@ -1,3 +1,5 @@
+// Michael Schrandt
+
 #include "TileFactory.h"
 
 TileFactory::TileFactory()
@@ -57,6 +59,7 @@ TileFactory::~TileFactory()
 	delete [] sprites;
 }
 
+//update each tile (animations)
 void TileFactory::update()
 {
 	time += game.time.asSeconds();

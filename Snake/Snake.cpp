@@ -1,7 +1,10 @@
+// Michael Schrandt
+
 #include "Snake.h"
 
 Snake::Snake()
 {
+	//Default: 5 links
     length = 5;
     direction = RIGHT;
     previousX = 32;
